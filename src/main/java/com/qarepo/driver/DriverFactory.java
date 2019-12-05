@@ -21,9 +21,9 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 class DriverFactory {
-    private static WebDriver driver = null;
 
     static WebDriver createDriverInstance(final String browser, String downloadPath) {
+        WebDriver driver = null;
         if (browser.equalsIgnoreCase("Firefox")) {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions fo = new FirefoxOptions();
@@ -69,7 +69,7 @@ class DriverFactory {
                         .usingPort(4444)
                         .withWhitelistedIps("")
                         .build();
-                ChromeDriver driver = new ChromeDriver(driverService, options);
+                ChromeDriver chromeDriver = new ChromeDriver(driverService, options);
                 Map<String, Object> commandParams = new HashMap<>();
                 commandParams.put("cmd", "Page.setDownloadBehavior");
                 Map<String, String> params = new HashMap<>();
@@ -79,14 +79,14 @@ class DriverFactory {
                 ObjectMapper objectMapper = new ObjectMapper();
                 HttpClient httpClient = HttpClientBuilder.create().build();
                 String command = objectMapper.writeValueAsString(commandParams);
-                String u = driverService.getUrl().toString() + "/session/" + driver.getSessionId() + "/chromium/send_command";
+                String u = driverService.getUrl().toString() + "/session/" + chromeDriver.getSessionId() + "/chromium/send_command";
                 HttpPost request = new HttpPost(u);
                 request.addHeader("content-type", "application/json");
                 request.setEntity(new StringEntity(command));
                 httpClient.execute(request);
-                driver.manage().window().maximize();
-                driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-                return driver;
+                chromeDriver.manage().window().maximize();
+                chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+                return chromeDriver;
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,7 +1,7 @@
 package com.qarepo.driver.proxy;
 
 import com.qarepo.driver.Randomize;
-import com.qarepo.driver.WebDriverRunnerImpl;
+import com.qarepo.driver.WebDriverRunner;
 import com.qarepo.driver.WebDriverThreadManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +20,7 @@ public class SeleniumProxyFinder implements Randomize {
 
     @Override
     public String getRandomValue() {
-        WebDriverRunnerImpl driver = new WebDriverRunnerImpl();
+        WebDriverRunner driver = new WebDriverRunner();
         ProxyService proxyService = new ProxyService();
         driver.startWebDriver(browser);
         WebDriverThreadManager.getDriver().get(url);

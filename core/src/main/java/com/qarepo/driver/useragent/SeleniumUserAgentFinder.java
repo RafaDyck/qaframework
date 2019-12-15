@@ -1,7 +1,7 @@
 package com.qarepo.driver.useragent;
 
 import com.qarepo.driver.Randomize;
-import com.qarepo.driver.WebDriverRunnerImpl;
+import com.qarepo.driver.WebDriverRunner;
 import com.qarepo.driver.WebDriverThreadManager;
 import com.qarepo.driver.WebDriverWaits;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +35,7 @@ public class SeleniumUserAgentFinder implements Randomize {
     @Override
     public String getRandomValue() {
         String userAgent = null;
-        WebDriverRunnerImpl driver = new WebDriverRunnerImpl();
+        WebDriverRunner driver = new WebDriverRunner();
         try {
             driver.startWebDriver(browser);
             WebDriverThreadManager.getDriver()

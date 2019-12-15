@@ -1,6 +1,6 @@
 package com.qarepo.tests;
 
-import com.qarepo.driver.WebDriverRunnerImpl;
+import com.qarepo.driver.WebDriverRunner;
 import com.qarepo.driver.WebDriverThreadManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class TestListener implements IInvokedMethodListener {
     private static final Logger logger = LogManager.getLogger(TestListener.class);
-    private WebDriverRunnerImpl webDriver = new WebDriverRunnerImpl();
+    private WebDriverRunner webDriver = new WebDriverRunner();
 
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.isTestMethod()) {

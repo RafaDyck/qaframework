@@ -1,0 +1,37 @@
+package com.qarepo.tests;
+
+import com.qarepo.driver.WebDriverRunnerImpl;
+import com.qarepo.driver.WebDriverThreadManager;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.IInvokedMethod;
+import org.testng.IInvokedMethodListener;
+import org.testng.ITestResult;
+
+import java.util.Map;
+
+public class TestListener implements IInvokedMethodListener {
+    private static final Logger logger = LogManager.getLogger(TestListener.class);
+    private WebDriverRunnerImpl webDriver = new WebDriverRunnerImpl();
+
+    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        if (method.isTestMethod()) {
+            Map<String, String> testParams = method.getTestMethod().getXmlTest().getLocalParameters();
+            String browser = testParams.get("browser");
+            String URL = testParams.get("URL");
+            webDriver.startWebDriver(browser);
+            WebDriverThreadManager.getDriver().get(URL);
+            logger.log(Level.INFO, "[WebDriver Hash: " + WebDriverThreadManager.getDriver().hashCode() + "] Started test with following parameters "
+                    + "[description: " + testResult.getMethod().getDescription()
+                    + "] [browser: " + browser
+                    + "] [URL: " + URL + "]");
+        }
+    }
+
+    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+        if (method.isTestMethod()) {
+            webDriver.stopWebDriver();
+        }
+    }
+}

@@ -7,17 +7,16 @@ import org.openqa.selenium.WebDriver;
 
 public class WebDriverRunnerImpl implements WebDriverRunner {
     private static final Logger logger = LogManager.getLogger(WebDriverRunnerImpl.class);
-    private WebDriver driver = null;
 
     public void startWebDriver(String browser) {
-        driver = DriverFactory.createDriverInstance(browser, "");
+        WebDriver driver = DriverFactory.createDriverInstance(browser, "");
         WebDriverThreadManager.setWebDriver(driver);
         logger.log(Level.INFO, "[WebDriver Hash: " + driver.hashCode() + "] WebDriver Created");
     }
 
     public void stopWebDriver() {
         int driverHash = 0;
-        if (driver != null) {
+        if (WebDriverThreadManager.getDriver() != null) {
             driverHash = WebDriverThreadManager.getDriver().hashCode();
             WebDriverThreadManager.getDriver().quit();
         }

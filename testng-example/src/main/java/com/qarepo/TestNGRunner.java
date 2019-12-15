@@ -9,7 +9,7 @@ public class TestNGRunner {
 	public static void main(String[] args) {
 		TestNG testng = new TestNG();
 		List<String> suites = new ArrayList<String>();
-		suites.add("config-test.xml");
+		suites.add("./testng-example/src/main/resources/testng-config.xml");
 		testng.setTestSuites(suites);
 		testng.run();
 	}

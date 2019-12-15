@@ -1,6 +1,9 @@
-package com.qarepo.driver;
+package com.qarepo.driver.useragent;
 
-import com.qarepo.utils.WebDriverUtils;
+import com.qarepo.driver.Randomize;
+import com.qarepo.driver.WebDriverRunnerImpl;
+import com.qarepo.driver.WebDriverThreadManager;
+import com.qarepo.driver.WebDriverWaits;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -23,7 +26,7 @@ public class SeleniumUserAgentFinder implements Randomize {
     }
 
     public List<String> getUserAgentList() {
-        return WebDriverUtils.findElementsWithWait(By.xpath("//td/a"), 10, 1)
+        return WebDriverWaits.findElementsWithWait(By.xpath("//td/a"))
                              .stream()
                              .map(WebElement::getText)
                              .collect(Collectors.toList());

@@ -1,6 +1,6 @@
 package com.qarepo.driver.proxy;
 
-import com.qarepo.utils.WebDriverUtils;
+import com.qarepo.driver.WebDriverWaits;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,19 +9,19 @@ public class ProxyService {
 
     void select_HttpsOptions_Yes() {
         LOGGER.info("Select HTTPS filter option: 'yes'");
-        WebDriverUtils.findElementWithClickableWait(ProxyElements.dropDown_FilterHttps(), 10, 1)
+        WebDriverWaits.findElementWithClickableWait(ProxyElements.dropDown_FilterHttps(), 10, 1)
                       .click();
     }
 
     private String getProxyHostByIndex(int elementNumber) {
-        String iPAddress = WebDriverUtils.findElementWithVisibilityWait(ProxyElements.text_HostIpAddress(elementNumber), 10, 1)
+        String iPAddress = WebDriverWaits.findElementWithVisibilityWait(ProxyElements.text_HostIpAddress(elementNumber), 10, 1)
                                          .getText();
         LOGGER.info("[Proxy #" + elementNumber + " Host IPAddress: " + iPAddress + "]");
         return iPAddress;
     }
 
     private String getProxyPortByIndex(int elementNumber) {
-        String port = WebDriverUtils.findElementWithVisibilityWait(ProxyElements.text_Port(elementNumber), 10, 1)
+        String port = WebDriverWaits.findElementWithVisibilityWait(ProxyElements.text_Port(elementNumber), 10, 1)
                                     .getText();
         LOGGER.info("[Proxy #" + elementNumber + " Port: " + port + "]");
         return port;

@@ -1,5 +1,6 @@
-package com.qarepo.driver;
+package com.qarepo.driver.useragent;
 
+import com.qarepo.driver.Randomize;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;

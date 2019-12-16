@@ -61,7 +61,7 @@ public final class SeleniumUtils {
      * Period.OfWeeks(int weeks), Period.OfMonths(int months), Period.OfYears(int
      * years)
      */
-    public static String dateGenerator(TemporalAmount amountToAdd) {
+    public static String dateGenerator(TemporalAmount period) {
         LocalDateTime localDate = LocalDateTime.now().plus(amountToAdd);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         return localDate.format(formatter);

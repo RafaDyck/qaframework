@@ -25,8 +25,8 @@ public class GoogleTests {
         GoogleActions ga = new GoogleActions();
         ga.search("youtube");
         List<GoogleSearchResult> results = ga.getList_GoogleSearchResults();
-        Assert.assertTrue(results.get(0).getTitle().equalsIgnoreCase("YouTube"));
-        Assert.assertTrue(results.get(0).getURL().equalsIgnoreCase("https://youtube.com"));
+        Assert.assertTrue(results.get(0).getTitle().contains("YouTube"));
+        Assert.assertTrue(results.get(0).getURL().contains("https://www.youtube.com"));
         Assert.assertTrue(results.get(0).getDescription().contains("YouTube"));
     }
 
@@ -37,8 +37,10 @@ public class GoogleTests {
      * test data objects(I.E. GoogleSearchResult) with expected results
      * @param testData DataProvider to pass multiple test values to 1 test.
      */
-    @Test(groups = "search", description = "Perform multiple searches and extract results for multiple pages.",
-            dataProvider = "searchTerms", dataProviderClass = DataSupplier.class)
+    @Test(groups = "search",
+            description = "Perform multiple searches and extract results for multiple pages.",
+            dataProvider = "searchTerms",
+            dataProviderClass = DataSupplier.class)
     public void searchReturnsMultiplePages(String... testData) {
         GoogleActions ga = new GoogleActions();
         ga.search(testData[0]);
@@ -54,8 +56,10 @@ public class GoogleTests {
      * Same as searchReturnsMultiplePages(String... testData) but with data source which returns maps for test data
      * @param testData DataProvider to pass multiple test values to 1 test.
      */
-    @Test(groups = "search", description = "Perform multiple searches and extract results for multiple pages.",
-            dataProvider = "searchTermsExternalSource", dataProviderClass = DataSupplier.class)
+    @Test(groups = "search",
+            description = "Perform multiple searches and extract results for multiple pages.",
+            dataProvider = "searchTermsExternalSource",
+            dataProviderClass = DataSupplier.class)
     public void searchReturnsMultiplePagesWithExternalTestData(String... testData) {
         GoogleActions ga = new GoogleActions();
         ga.search(testData[0]);

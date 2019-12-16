@@ -62,7 +62,7 @@ public final class SeleniumUtils {
      * years)
      */
     public static String dateGenerator(TemporalAmount period) {
-        LocalDateTime localDate = LocalDateTime.now().plus(amountToAdd);
+        LocalDateTime localDate = LocalDateTime.now().plus(period);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         return localDate.format(formatter);
     }

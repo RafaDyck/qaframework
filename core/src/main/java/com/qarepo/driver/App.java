@@ -1,6 +1,5 @@
 package com.qarepo.driver;
 
-
 import com.qarepo.driver.proxy.SeleniumProxyFinder;
 import com.qarepo.driver.useragent.JSoupUserAgentFinder;
 import com.qarepo.driver.useragent.SeleniumUserAgentFinder;

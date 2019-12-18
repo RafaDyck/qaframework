@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.qarepo</groupId>
+            <artifactId>qaframework</artifactId>
+            <version>2.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>

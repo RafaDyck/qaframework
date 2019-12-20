@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +22,8 @@ public class SeleniumLinkTests {
 
     @Test(groups = {"selenium-site-links"}
             , description = "All pages, images display with successful response code")
-    public void checkImageLinks() {
+    public void checkLinks() {
+        SoftAssert softAssert = new SoftAssert();
         NavigationActions nav = new NavigationActions();
         LinkActions linkActions = new LinkActions();
 
@@ -32,16 +34,25 @@ public class SeleniumLinkTests {
             List<String> linkTags = new ArrayList<>(linkActions.get_Link_Tag_Href());
 
             for (String aTag : aTags) {
-                try {
-                    URL url = new URL(aTag);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    int responseCode = conn.getResponseCode();
-                    LOGGER.info("[A-tag href:" + aTag + "] [Response Code:" + responseCode);
-                    Assert.assertEquals(200, conn.getResponseCode());
-                    conn.disconnect();
-                } catch (IOException e) {
-                    e.printStackTrace(new PrintWriter(sw));
-                    LOGGER.error(sw.toString());
+                if (!(aTag.contains("javascript")) && !(aTag.contains("tel"))) {
+                    try {
+                        LOGGER.info("atag= " + aTag);
+                        URL url = new URL(aTag);
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        int responseCode = conn.getResponseCode();
+                        LOGGER.info("[A-tag href:" + aTag + "] [Response Code:" + responseCode);
+                        if (responseCode == 200) {
+                            softAssert.assertEquals(200, responseCode);
+                        } else if (responseCode == 301) {
+                            softAssert.assertEquals(301, responseCode);
+                        } else {
+                            softAssert.fail("[URL: " + aTag + "] [Response Code: " + responseCode + "]");
+                        }
+                        conn.disconnect();
+                    } catch (IOException e) {
+                        e.printStackTrace(new PrintWriter(sw));
+                        LOGGER.error(sw.toString());
+                    }
                 }
             }
             for (String imgTag : imgTags) {
@@ -50,27 +61,40 @@ public class SeleniumLinkTests {
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     int responseCode = conn.getResponseCode();
                     LOGGER.info("[Img-tag src:" + imgTag + "] [Response Code:" + responseCode);
-                    Assert.assertEquals(200, conn.getResponseCode());
+                    if (responseCode == 200) {
+                        softAssert.assertEquals(200, responseCode);
+                    } else if (responseCode == 301) {
+                        softAssert.assertEquals(301, responseCode);
+                    } else {
+                        softAssert.fail("[URL: " + imgTag + "] [Response Code: " + responseCode + "]");
+                    }
                     conn.disconnect();
                 } catch (IOException e) {
                     e.printStackTrace(new PrintWriter(sw));
                     LOGGER.error(sw.toString());
                 }
             }
-/*            for (String linkTag : linkTags) {
+            for (String linkTag : linkTags) {
                 try {
                     URL url = new URL(linkTag);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     int responseCode = conn.getResponseCode();
                     LOGGER.info("[Link-tag href:" + linkTag + "] [Response Code:" + responseCode);
-                    Assert.assertEquals(200, conn.getResponseCode());
+                    if (responseCode == 200) {
+                        softAssert.assertEquals(200, responseCode);
+                    } else if (responseCode == 301) {
+                        softAssert.assertEquals(301, responseCode);
+                    } else {
+                        softAssert.fail("[URL: " + linkTag + "] [Response Code: " + responseCode + "]");
+                    }
                     conn.disconnect();
                 } catch (IOException e) {
                     e.printStackTrace(new PrintWriter(sw));
-            LOGGER.error(sw.toString());
+                    LOGGER.error(sw.toString());
                 }
-            }*/
+            }
         }
+        softAssert.assertAll();
     }
 }
 

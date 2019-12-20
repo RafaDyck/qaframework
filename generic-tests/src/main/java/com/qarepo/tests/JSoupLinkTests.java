@@ -16,7 +16,7 @@ public class JSoupLinkTests {
     private static final Logger LOGGER = LogManager.getLogger(JSoupLinkTests.class);
     private static StringWriter sw = new StringWriter();
 
-    @Test(groups = {"site-links"},
+    @Test(groups = {"jsoup-site-links"},
             dataProvider = "getLinksFromCSV"
             , dataProviderClass = DataGenerator.class
             , description = "Check site links for success/redirect response")

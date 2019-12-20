@@ -25,7 +25,7 @@ public class LinkActions {
     public Set<String> get_A_Tag_Href() {
         Set<String> set = WebDriverWaits.findElementsWithWait(LinkElements.list_All_ATag_Href(), 30, 1)
                                         .stream()
-                                        .map(e -> e.getAttribute("src"))
+                                        .map(e -> e.getAttribute("href"))
                                         .collect(Collectors.toSet());
         LOGGER.info("[WebDriver Hash: " + driverHash + "] [A-tags Found: " + set.size() + "]");
         return set;
@@ -34,7 +34,7 @@ public class LinkActions {
     public Set<String> get_Link_Tag_Href() {
         Set<String> set = WebDriverWaits.findElementsWithWait(LinkElements.list_All_LinkTag_Href(), 30, 1)
                                         .stream()
-                                        .map(e -> e.getAttribute("src"))
+                                        .map(e -> e.getAttribute("href"))
                                         .collect(Collectors.toSet());
         LOGGER.info("[WebDriver Hash: " + driverHash + "] [Link-tags Found: " + set.size() + "]");
         return set;
